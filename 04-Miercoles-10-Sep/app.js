@@ -1,4 +1,4 @@
-console.log("Jardin 01 - Viernes 5- Sep - Canvas 2D");   
+console.log("Jardin 04 - Miercoles 10- Sep - Canvas 2D");   
 console.log(THREE);
 
 //configurar <canvas>
