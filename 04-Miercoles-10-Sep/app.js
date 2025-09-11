@@ -6,10 +6,26 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
-// Paleta de colores menos saturados y más suaves
+// Paleta variada: rosas, morados, verdes, azules, turquesas, amarillo pastel
 const colores = [
-  "#e57399", "#f7b267", "#7fd8be", "#7ec4cf", "#f7e967", "#e59ec9",
-  "#f7a072", "#8fd694", "#b39ddb", "#e0aaff", "#f7b7a3", "#a3f7bf"
+  "#e57399", // rosa suave
+  "#f7b7a3", // rosa pastel
+  "#d291bc", // lila pastel
+  "#b39ddb", // morado pastel
+  "#a3f7bf", // verde menta
+  "#7fd8be", // verde agua
+  "#7ec4cf", // azul pastel
+  "#b8bedd", // azul lavanda
+  "#00bfae", // turquesa
+  "#f7e967", // amarillo pastel
+  "#e0aaff", // lila claro
+  "#f7cac9", // rosa claro
+  "#e59ec9", // magenta pastel
+  "#b5ead7", // verde claro
+  "#c1f7d3", // verde muy claro
+  "#aee6e6", // azul turquesa pastel
+  "#f7a072", // naranja pastel
+  "#8fd694"  // verde suave
 ];
 
 // Definir cuadrado central
