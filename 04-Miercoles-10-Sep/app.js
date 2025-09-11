@@ -20,13 +20,25 @@ const y0 = (canvas.height - size) / 2;
 // Parámetros de barras
 const numBarras = 120;
 
-// Animación dinámica de barras (base y tope irregulares)
+// Estado para interacción
+let mouseX = -1;
+let mouseY = -1;
+
+// Escuchar movimiento del mouse
+canvas.addEventListener("mousemove", function(e) {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+canvas.addEventListener("mouseleave", function() {
+  mouseX = -1;
+  mouseY = -1;
+});
+
+// Animación dinámica de barras (base y tope irregulares + interacción mouse)
 function drawBarras(time) {
-  // Fondo negro
   ctx.fillStyle = "#222";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Fondo del cuadrado
   ctx.fillStyle = "#222";
   ctx.fillRect(x0, y0, size, size);
 
@@ -42,24 +54,36 @@ function drawBarras(time) {
     const topOffset = Math.cos(t/1100 + i*2.7) * 20 + Math.sin(t/900 + i*1.3) * 15;
 
     // Calcula posición y altura para que ambas partes sean irregulares
+    const barraX = x0 + i * (size / numBarras);
     const barraY = y0 + size - alturaTotal + baseOffset;
     const barraAltura = alturaTotal - baseOffset - topOffset;
 
+    // Detectar si el mouse está sobre la barra
+    let reaccion = 1;
+    if (
+      mouseX >= barraX &&
+      mouseX <= barraX + anchoBarra &&
+      mouseY >= barraY &&
+      mouseY <= barraY + barraAltura
+    ) {
+      reaccion = 2.5; // reacción más fuerte
+    }
+
     ctx.fillRect(
-      x0 + i * (size / numBarras),
-      barraY,
+      barraX,
+      barraY - (reaccion - 1) * 30, // mueve más si hay reacción
       anchoBarra,
-      barraAltura > 0 ? barraAltura : 2 // evita altura negativa
+      (barraAltura > 0 ? barraAltura : 2) + (reaccion - 1) * 40 // crece si hay reacción
     );
 
     // Barra delgada encima para contraste y tamaño aleatorio
     const anchoDelgada = anchoBarra * (0.3 + Math.abs(Math.sin(t/600 + i*2.5)) * 0.5);
     ctx.fillStyle = colores[(i + Math.floor(t/80)) % colores.length];
     ctx.fillRect(
-      x0 + i * (size / numBarras) + anchoBarra / 4,
-      barraY,
+      barraX + anchoBarra / 4,
+      barraY - (reaccion - 1) * 30,
       anchoDelgada,
-      (barraAltura > 0 ? barraAltura : 2) * (0.5 + Math.abs(Math.sin(t/900 + i*3.1)) * 0.5)
+      ((barraAltura > 0 ? barraAltura : 2) * (0.5 + Math.abs(Math.sin(t/900 + i*3.1)) * 0.5)) + (reaccion - 1) * 20
     );
   }
   requestAnimationFrame(drawBarras);
