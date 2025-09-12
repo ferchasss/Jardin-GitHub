@@ -28,13 +28,20 @@ ctx.fillStyle = grad;
 ctx.fill();
 ctx.closePath();
 
-// Dibujar círculos concéntricos
+// Dibujar círculos concéntricos con grosor variable
 const numCircles = 18;
+const maxLineWidth = 10; // grosor máximo en el centro
+const minLineWidth = 2;  // grosor mínimo en el borde
+
 for (let i = 0; i < numCircles; i++) {
   ctx.beginPath();
   ctx.arc(cx, cy, (maxRadius / numCircles) * (i + 1), 0, Math.PI * 2);
-  ctx.strokeStyle = "white";
-  ctx.lineWidth = 2;
+
+  // Interpolación del grosor: más grueso en el centro, más delgado afuera
+  const t = 1 - i / numCircles;
+  ctx.lineWidth = minLineWidth + t * (maxLineWidth - minLineWidth);
+
+  ctx.strokeStyle = "blue";
   ctx.stroke();
   ctx.closePath();
 }
