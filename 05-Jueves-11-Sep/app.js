@@ -6,21 +6,18 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
-// Fondo rojo
-ctx.fillStyle = "#e53935";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 // Centro y tamaño
 const cx = canvas.width / 2;
 const cy = canvas.height / 2;
 const maxRadius = Math.min(canvas.width, canvas.height) * 0.4;
 
-// Gradiente azul más notorio y más azul
+// Gradiente radial: centro azul eléctrico, exterior rojo
 const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius);
-grad.addColorStop(0, "#0033cc"); // azul intenso
-grad.addColorStop(0.5, "#1976d2"); // azul medio
-grad.addColorStop(0.8, "#64b5f6"); // azul claro
-grad.addColorStop(1, "rgba(0,51,204,0.7)"); // azul translúcido
+grad.addColorStop(0, "#00f6ff");    // azul eléctrico
+grad.addColorStop(0.4, "#1976d2"); // azul medio
+grad.addColorStop(0.7, "#e53935"); // rojo fuerte
+grad.addColorStop(1, "#e53935");   // rojo fuerte
+
 ctx.beginPath();
 ctx.arc(cx, cy, maxRadius, 0, Math.PI * 2);
 ctx.fillStyle = grad;
