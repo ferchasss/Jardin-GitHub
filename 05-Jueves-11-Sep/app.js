@@ -6,6 +6,10 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
+// Fondo rojo igual al borde del gradiente
+ctx.fillStyle = "#e53935";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 // Centro y tamaño
 const cx = canvas.width / 2;
 const cy = canvas.height / 2;
@@ -13,7 +17,7 @@ const maxRadius = Math.min(canvas.width, canvas.height) * 0.4;
 
 // Gradiente radial: centro azul eléctrico, exterior rojo
 const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius);
-grad.addColorStop(0, "#00f6ff");    // azul eléctrico
+grad.addColorStop(0, "#1976d2");    // azul eléctrico
 grad.addColorStop(0.4, "#1976d2"); // azul medio
 grad.addColorStop(0.7, "#e53935"); // rojo fuerte
 grad.addColorStop(1, "#e53935");   // rojo fuerte
