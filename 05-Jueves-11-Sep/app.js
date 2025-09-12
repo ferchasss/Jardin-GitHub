@@ -1,166 +1,53 @@
-console.log("Jardin 04 - Miercoles 10- Sep - Canvas 2D");
+console.log("Jardin 05 - Jueves 11- Sep - Op Art 3D");
 
-//configurar <canvas>
+// Configurar <canvas>
 const canvas = document.getElementById("lienzo");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const ctx = canvas.getContext("2d");
 
-// Paleta variada: rosas, morados, verdes, azules, turquesas, amarillo pastel
-const colores = [
-  "#e57399", // rosa suave
-  "#f7b7a3", // rosa pastel
-  "#d291bc", // lila pastel
-  "#b39ddb", // morado pastel
-  "#a3f7bf", // verde menta
-  "#7fd8be", // verde agua
-  "#7ec4cf", // azul pastel
-  "#b8bedd", // azul lavanda
-  "#00bfae", // turquesa
-  "#f7e967", // amarillo pastel
-  "#e0aaff", // lila claro
-  "#f7cac9", // rosa claro
-  "#e59ec9", // magenta pastel
-  "#b5ead7", // verde claro
-  "#c1f7d3", // verde muy claro
-  "#aee6e6", // azul turquesa pastel
-  "#f7a072", // naranja pastel
-  "#8fd694"  // verde suave
-];
-
-// Definir cuadrado central
-const size = Math.min(canvas.width, canvas.height) * 0.8;
-const x0 = (canvas.width - size) / 2;
-const y0 = (canvas.height - size) / 2;
-
-// Parámetros de barras
-const numBarras = 120;
-
-// Estado para interacción
-let mouseX = -1;
-let mouseY = -1;
-
-// Escuchar movimiento del mouse
-canvas.addEventListener("mousemove", function(e) {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-canvas.addEventListener("mouseleave", function() {
-  mouseX = -1;
-  mouseY = -1;
-});
-
-// Animación dinámica de barras (base y tope irregulares + interacción mouse)
-function drawBarras(time) {
-  ctx.fillStyle = "#222";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "#222";
-  ctx.fillRect(x0, y0, size, size);
-
-  for (let i = 0; i < numBarras; i++) {
-    const t = time * 0.2;
-    const rand = Math.sin(t/900 + i*2) + Math.cos(t/700 + i*3) + Math.sin(t/500 + i*5);
-    const anchoBarra = (size / numBarras) * (0.5 + Math.abs(rand) * 1.5);
-    ctx.fillStyle = colores[(i + Math.floor(t/200)) % colores.length];
-
-    // Altura base y tope irregulares
-    const alturaTotal = size * (0.5 + Math.abs(Math.cos(t/1200 + i*1.7) + Math.sin(t/800 + i*2.3)) * 0.25);
-    const baseOffset = Math.sin(t/1000 + i*3.5) * 20 + Math.cos(t/700 + i*2.1) * 15;
-    const topOffset = Math.cos(t/1100 + i*2.7) * 20 + Math.sin(t/900 + i*1.3) * 15;
-
-    // Calcula posición y altura para que ambas partes sean irregulares
-    const barraX = x0 + i * (size / numBarras);
-    const barraY = y0 + size - alturaTotal + baseOffset;
-    const barraAltura = alturaTotal - baseOffset - topOffset;
-
-    // Detectar si el mouse está sobre la barra
-    let reaccion = 1;
-    if (
-      mouseX >= barraX &&
-      mouseX <= barraX + anchoBarra &&
-      mouseY >= barraY &&
-      mouseY <= barraY + barraAltura
-    ) {
-      reaccion = 2.5; // reacción más fuerte
-    }
-
-    ctx.fillRect(
-      barraX,
-      barraY - (reaccion - 1) * 30, // mueve más si hay reacción
-      anchoBarra,
-      (barraAltura > 0 ? barraAltura : 2) + (reaccion - 1) * 40 // crece si hay reacción
-    );
-
-    // Barra delgada encima para contraste y tamaño aleatorio
-    const anchoDelgada = anchoBarra * (0.3 + Math.abs(Math.sin(t/600 + i*2.5)) * 0.5);
-    ctx.fillStyle = colores[(i + Math.floor(t/80)) % colores.length];
-    ctx.fillRect(
-      barraX + anchoBarra / 4,
-      barraY - (reaccion - 1) * 30,
-      anchoDelgada,
-      ((barraAltura > 0 ? barraAltura : 2) * (0.5 + Math.abs(Math.sin(t/900 + i*3.1)) * 0.5)) + (reaccion - 1) * 20
-    );
-  }
-  requestAnimationFrame(drawBarras);
-}
-
-drawBarras(0);
-
-//creamos nuestros elementos basicos
-//escena, camara, mesh, renderer
-//escena
+// Escena
 const scene = new THREE.Scene();
-//camara
-//const camera = new THREE.Camera(fov, aspectRadio, near, far);
-const camera = new THREE.PerspectiveCamera(45, canvas.width / canvas.height, 0.1, 1000);
+scene.background = new THREE.Color(0x222222);
 
-//mesh
-//geometria//radius, radialSegments, heightSegments
-const geometry = new THREE.CylinderGeometry();
-(1, 60, 60);
-//material
-const material = new THREE.MeshNormalMaterial({flatShading: true});
+// Cámara
+const camera = new THREE.PerspectiveCamera(60, canvas.width / canvas.height, 0.1, 1000);
+camera.position.z = 40;
 
-    //configuracion de matcaps
-    //inicio
-// Material.
-const textureLoader = new THREE.TextureLoader();
-var matcapMaterial;
-var mesh;
-var matcapMap = textureLoader.load(
-   // Textura URL
-   './texture/roca-rosa.png',
-   // on Load callback
-   function (texture) {
-       matcapMaterial = new THREE.MeshMatcapMaterial( { matcap: texture } );
-       // Mesh.
-       mesh = new THREE.Mesh( geometry, matcapMaterial );
-       // 3. Poner objeto en la escena.
-       scene.add(mesh);
-       mesh.position.z = -5;
-       // 4. Activar animación.
-       animate();
-   },
-   // on Progress (no funciona por ahora)
-   undefined,
-   // on Error callback
-   function (error) { console.error("Algo salio mal con la textura,", error); }
-);
+// Renderer
+const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
+renderer.setSize(canvas.width, canvas.height);
 
-    //fin
+// Paleta op art (blanco y negro, y algunos acentos pastel)
+const colores = [0xffffff, 0x222222, 0xe57399, 0x7fd8be, 0xf7e967, 0xb39ddb];
 
-    //render
-    const renderer = new THREE.WebGLRenderer({canvas: canvas});
-    renderer.setSize(canvas.width, canvas.height);
+// Crear grupo de anillos
+const grupo = new THREE.Group();
+const numAnillos = 18;
+for (let i = 0; i < numAnillos; i++) {
+  const radio = 5 + i * 1.1;
+  const grosor = 0.3 + Math.sin(i) * 0.15;
+  const color = colores[i % colores.length];
+  const geometry = new THREE.TorusGeometry(radio, grosor, 16, 100);
+  const material = new THREE.MeshBasicMaterial({color: color});
+  const torus = new THREE.Mesh(geometry, material);
+  torus.rotation.x = Math.PI / 2;
+  grupo.add(torus);
+}
+scene.add(grupo);
 
-    //dar instruccion de renderizar o impimir nuestro elemento
-    renderer.render(scene, camera);
+// Luz suave para acentos
+const light = new THREE.AmbientLight(0xffffff, 0.7);
+scene.add(light);
 
-    //tip para animar nuestro mesh
-    function animate(){
-        requestAnimationFrame(animate);
-        mesh.rotation.x += 0.01;
-        mesh.rotation.y += 0.01;
-        renderer.render(scene, camera);
-    }
+// Animación op art
+function animateOpArt() {
+  requestAnimationFrame(animateOpArt);
+  grupo.rotation.z += 0.005;
+  grupo.rotation.x = Math.sin(Date.now() * 0.001) * 0.3;
+  grupo.children.forEach((torus, idx) => {
+    torus.rotation.y += 0.01 + idx * 0.001;
+    torus.material.color.setHex(colores[(idx + Math.floor(Date.now() * 0.002)) % colores.length]);
+  });
+  renderer.render(scene, camera);
+}
+animateOpArt();
