@@ -30,8 +30,8 @@ ctx.closePath();
 
 // Dibujar círculos concéntricos con grosor variable
 const numCircles = 18;
-const maxLineWidth = 10; // grosor máximo en el centro
-const minLineWidth = 2;  // grosor mínimo en el borde
+const maxLineWidth = 5; // más delgadas en el centro
+const minLineWidth = 1; // más delgadas en el borde
 
 for (let i = 0; i < numCircles; i++) {
   ctx.beginPath();
