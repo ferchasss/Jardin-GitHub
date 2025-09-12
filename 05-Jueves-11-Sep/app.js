@@ -30,14 +30,14 @@ ctx.closePath();
 
 // Dibujar círculos concéntricos con grosor variable
 const numCircles = 18;
-const maxLineWidth = 5; // más delgadas en el centro
-const minLineWidth = 1; // más delgadas en el borde
+const maxLineWidth = 14; // más gruesas en el centro
+const minLineWidth = 1;  // más delgadas en el borde
 
 for (let i = 0; i < numCircles; i++) {
   ctx.beginPath();
   ctx.arc(cx, cy, (maxRadius / numCircles) * (i + 1), 0, Math.PI * 2);
 
-  // Interpolación del grosor: más grueso en el centro, más delgado afuera
+  // Interpolación del grosor: mucho más grueso en el centro, más delgado afuera
   const t = 1 - i / numCircles;
   ctx.lineWidth = minLineWidth + t * (maxLineWidth - minLineWidth);
 
