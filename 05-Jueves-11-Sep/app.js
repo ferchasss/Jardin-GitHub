@@ -15,10 +15,12 @@ const cx = canvas.width / 2;
 const cy = canvas.height / 2;
 const maxRadius = Math.min(canvas.width, canvas.height) * 0.4;
 
-// Gradiente azul en el centro
+// Gradiente azul más notorio y más azul
 const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius);
-grad.addColorStop(0, "#1e3c72");
-grad.addColorStop(1, "rgba(30,60,114,0)");
+grad.addColorStop(0, "#0033cc"); // azul intenso
+grad.addColorStop(0.5, "#1976d2"); // azul medio
+grad.addColorStop(0.8, "#64b5f6"); // azul claro
+grad.addColorStop(1, "rgba(0,51,204,0.7)"); // azul translúcido
 ctx.beginPath();
 ctx.arc(cx, cy, maxRadius, 0, Math.PI * 2);
 ctx.fillStyle = grad;
