@@ -12,45 +12,54 @@
     const boomerang = document.querySelector('.boomerang');
     let animating = false;
 
-    // Inicializa la posición con GSAP para que x/y funcionen
-    gsap.set(boomerang, {x: 0, y: 0});
+    // Posición inicial: izquierda y centro vertical
+    function setInitialPosition() {
+      gsap.set(boomerang, {x: 0, y: window.innerHeight / 2 - 60, rotation: -30});
+    }
+    setInitialPosition();
 
     boomerang.addEventListener('click', () => {
       if (animating) return;
       animating = true;
 
-      // Animación de ida en curva (de izquierda a derecha)
+      // Animación de ida en curva (izquierda a derecha)
       gsap.to(boomerang, {
         duration: 1.2,
         bezier: {
           type: "soft",
           values: [
-            {x: 0, y: 0},
-            {x: window.innerWidth * 0.5, y: -200},
-            {x: window.innerWidth - 220, y: 0}
+            {x: 0, y: window.innerHeight / 2 - 60},
+            {x: window.innerWidth / 2 - 60, y: 100},
+            {x: window.innerWidth - 140, y: window.innerHeight / 2 - 60}
           ]
         },
         rotation: 90,
         ease: "power2.inOut",
         onComplete: () => {
-          // Animación de regreso en curva (de derecha a izquierda)
+          // Animación de regreso en curva (derecha a izquierda)
           gsap.to(boomerang, {
             duration: 1.2,
             bezier: {
               type: "soft",
               values: [
-                {x: window.innerWidth - 220, y: 0},
-                {x: window.innerWidth * 0.5, y: 200},
-                {x: 0, y: 0}
+                {x: window.innerWidth - 140, y: window.innerHeight / 2 - 60},
+                {x: window.innerWidth / 2 - 60, y: window.innerHeight - 200},
+                {x: 0, y: window.innerHeight / 2 - 60}
               ]
             },
             rotation: -30,
             ease: "power2.inOut",
-            onComplete: () => animating = false
+            onComplete: () => {
+              animating = false;
+              setInitialPosition(); // Reinicia la posición para el siguiente click
+            }
           });
         }
       });
     });
+
+    // Opcional: actualiza posición si la ventana cambia de tamaño
+    window.addEventListener('resize', setInitialPosition);
   </script>
 </body>
 </html>

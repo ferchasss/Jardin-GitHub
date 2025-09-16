@@ -22,8 +22,6 @@ body {
 }
 .boomerang {
   position: absolute;
-  left: 100px;
-  top: 300px;
   width: 120px;
   height: 120px;
   cursor: pointer;
