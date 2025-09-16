@@ -12,6 +12,9 @@
     const boomerang = document.querySelector('.boomerang');
     let animating = false;
 
+    // Inicializa la posición con GSAP para que x/y funcionen
+    gsap.set(boomerang, {x: 0, y: 0});
+
     boomerang.addEventListener('click', () => {
       if (animating) return;
       animating = true;
@@ -24,7 +27,7 @@
           values: [
             {x: 0, y: 0},
             {x: window.innerWidth * 0.5, y: -200},
-            {x: window.innerWidth - 200, y: 0}
+            {x: window.innerWidth - 220, y: 0}
           ]
         },
         rotation: 90,
@@ -36,7 +39,7 @@
             bezier: {
               type: "soft",
               values: [
-                {x: window.innerWidth - 200, y: 0},
+                {x: window.innerWidth - 220, y: 0},
                 {x: window.innerWidth * 0.5, y: 200},
                 {x: 0, y: 0}
               ]
