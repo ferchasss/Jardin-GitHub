@@ -1,47 +1,26 @@
-console.log("Jardin 05 - Jueves 11- Sep - Op Art 2D");
+const rect = document.querySelector('.rectangulo');
 
-// Configurar <canvas>
-const canvas = document.getElementById("lienzo");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const ctx = canvas.getContext("2d");
+rect.addEventListener('click', function(e) {
+  const rectWidth = rect.offsetWidth;
+  const rectHeight = rect.offsetHeight;
+  const padding = 20;
 
-// Fondo rojo igual al borde del gradiente
-ctx.fillStyle = "#e53935";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // Posición del mouse
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
 
-// Centro y tamaño
-const cx = canvas.width / 2;
-const cy = canvas.height / 2;
-const maxRadius = Math.min(canvas.width, canvas.height) * 0.4;
+  // Genera posición aleatoria lejos del mouse pero dentro de la pantalla
+  let newX, newY;
+  do {
+    newX = Math.floor(Math.random() * (window.innerWidth - rectWidth - padding));
+    newY = Math.floor(Math.random() * (window.innerHeight - rectHeight - padding));
+  } while (Math.abs(newX - mouseX) < 120 && Math.abs(newY - mouseY) < 80);
 
-// Gradiente radial: centro azul eléctrico, exterior rojo
-const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius);
-grad.addColorStop(0, "#1976d2");    // azul eléctrico
-grad.addColorStop(0.4, "#1976d2"); // azul medio
-grad.addColorStop(0.7, "#e53935"); // rojo fuerte
-grad.addColorStop(1, "#e53935");   // rojo fuerte
-
-ctx.beginPath();
-ctx.arc(cx, cy, maxRadius, 0, Math.PI * 2);
-ctx.fillStyle = grad;
-ctx.fill();
-ctx.closePath();
-
-// Dibujar círculos concéntricos con grosor variable
-const numCircles = 18;
-const maxLineWidth = 14; // más gruesas en el centro
-const minLineWidth = 1;  // más delgadas en el borde
-
-for (let i = 0; i < numCircles; i++) {
-  ctx.beginPath();
-  ctx.arc(cx, cy, (maxRadius / numCircles) * (i + 1), 0, Math.PI * 2);
-
-  // Interpolación del grosor: mucho más grueso en el centro, más delgado afuera
-  const t = 1 - i / numCircles;
-  ctx.lineWidth = minLineWidth + t * (maxLineWidth - minLineWidth);
-
-  ctx.strokeStyle = "blue";
-  ctx.stroke();
-  ctx.closePath();
-}
+  // Mueve el rectángulo con GSAP
+  gsap.to(rect, {
+    duration: 0.8,
+    left: newX,
+    top: newY,
+    ease: "power2.inOut"
+  });
+});

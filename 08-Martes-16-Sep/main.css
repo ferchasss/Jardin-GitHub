@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #222;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rectangulo {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  background: #f7b267;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  left: 50px;
+  top: 50px;
+  cursor: pointer;
+  border: 2px solid #1976d2;
+}
