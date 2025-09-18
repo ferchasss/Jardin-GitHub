@@ -38,3 +38,14 @@ function animate() {
   renderer.render(scene, camera);
 }
 animate();
+
+document.getElementById('cambiarCopa').addEventListener('click', () => {
+  // Paleta de colores para la copa
+  const colores = [0x228b22, 0x00ff00, 0x8bc34a, 0xffeb3b, 0xff5722, 0x1976d2];
+  // Selecciona un color aleatorio diferente al actual
+  let nuevoColor;
+  do {
+    nuevoColor = colores[Math.floor(Math.random() * colores.length)];
+  } while (nuevoColor === copa.material.color.getHex());
+  copa.material.color.setHex(nuevoColor);
+});
