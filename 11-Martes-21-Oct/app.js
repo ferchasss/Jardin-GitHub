@@ -1,4 +1,4 @@
-console.log("Viernes 12. Resize.");
+console.log("martes 21 octubre - mesh flotante THREE.js");
 console.log(THREE);
 
 // Configurar canvas
@@ -26,27 +26,59 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // luz direcci
 directionalLight.position.set(100, 100, 100);
 scene.add(directionalLight);
 
-const geometry = new THREE.TorusKnotGeometry( 1, 3, 8, 7 ); 
+// MATERIAL (se mantiene el mismo material para todos los meshes)
 const material = new THREE.MeshPhongMaterial({
    flatShading: true,
    specular: 0xffffff,
    shininess: 100,
-   color: "#e41a17ff"
+   color: "#030303"
 });
 
-//Crear un arreglo de mesh en círculo
+// Lista de "otras" geometrías disponibles (factory functions)
+const geometryFactories = [
+  // Esfera
+  () => new THREE.SphereGeometry(1.8, 32, 32),
+  // Caja
+  () => new THREE.BoxGeometry(3, 3, 3),
+  // Cono
+  () => new THREE.ConeGeometry(2, 4, 32),
+  // Toro (dona)
+  () => new THREE.TorusGeometry(2.2, 0.6, 16, 100),
+  // Icosaedro (poliedro)
+  () => new THREE.IcosahedronGeometry(2, 0)
+];
+
+// índice de geometría seleccionada (puedes cambiarlo)
+let selectedGeometryIndex = 0;
+
+// función para crear las geometrías/meshes en círculo usando la geometría seleccionada
 function crearObjetosEnCirculo(cantidad, radio) {
+    // si ya hay meshes previos, los limpiamos
+    if (window.meshFlotante && window.meshFlotante.length) {
+      window.meshFlotante.forEach(m => scene.remove(m));
+    }
+
     const objetos = [];
-    
+    // crear una sola geometría (misma instancia) para todos los meshes como pediste
+    const geometry = geometryFactories[selectedGeometryIndex]();
+
     for(let i = 0; i < cantidad; i++) {
-        const angulo = (i / cantidad) * Math.PI * 2; // para que mis meshes se dispongan en círculo en partes iguales
+        const angulo = (i / cantidad) * Math.PI * 2; // disposición circular
         const x = Math.cos(angulo) * radio; 
-        const y = Math.random() * 10 - 8; // tener una altura aleatoria para más dinamismo
+        const y = Math.random() * 10 - 8; // altura aleatoria para dinamismo
         const z = Math.sin(angulo) * radio;
         
-        // Crear nuevo mesh para cada objeto
+        // Crear nuevo mesh para cada objeto (reutilizando la misma geometry y el mismo material)
         const mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(x, y, z);
+
+        // Orientación y escala aleatoria para variedad
+        mesh.rotation.x = Math.random() * Math.PI;
+        mesh.rotation.y = Math.random() * Math.PI;
+        mesh.rotation.z = Math.random() * Math.PI;
+        const scale = 0.8 + Math.random() * 1.2;
+        mesh.scale.set(scale, scale, scale);
+
         objetos.push(mesh);
         scene.add(mesh);
     }
@@ -54,8 +86,8 @@ function crearObjetosEnCirculo(cantidad, radio) {
     return objetos;
 }
 
-// Crear objetos
-const meshFlotante = crearObjetosEnCirculo(12, 20);
+// Crear objetos iniciales
+window.meshFlotante = crearObjetosEnCirculo(12, 20);
 
 let time = 0;
 const amplitude = 2; // Qué tanto suben y bajan (altura maxima)
@@ -66,17 +98,35 @@ function animate() {
     requestAnimationFrame(animate);
     
     time += 1;
-    meshFlotante.forEach(objeto => {
-        objeto.position.y = amplitude * Math.sin(time * frequency + objeto.position.x); // Movimiento oscilatorio con Math.sin()
+    window.meshFlotante.forEach(objeto => {
+        objeto.position.y = amplitude * Math.sin(time * frequency + objeto.position.x); // Movimiento oscilatorio
+        objeto.rotation.y += 0.01; // rotación ligera para más dinamismo
     });
     
     renderer.render(scene, camera);
 }
 
 animate();
+
+// Función para cambiar geometría (recrea los meshes usando la nueva geometría)
+function switchGeometry(index) {
+  if (index < 0 || index >= geometryFactories.length) return;
+  selectedGeometryIndex = index;
+  window.meshFlotante.forEach(m => scene.remove(m));
+  window.meshFlotante = crearObjetosEnCirculo(12, 20);
+}
+
+// Atajos de teclado 1-5 para probar distintas geometrías
+window.addEventListener('keydown', (e) => {
+  if (e.key >= '1' && e.key <= String(geometryFactories.length)) {
+    const idx = Number(e.key) - 1;
+    switchGeometry(idx);
+  }
+});
+
 // Manejar el resize de la ventana
 window.addEventListener('resize', () => {
-   // Cambiar color aleatorio
+   // Cambiar color aleatorio del material (opcional)
    const newColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
    material.color.set(newColor);
 
