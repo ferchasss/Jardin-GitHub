@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;   
+    box-sizing: border-box;  
+ }
+
+body {
+    width: 100%;
+    min-height: 100vh;        /* asegurar viewport completo */
+    overflow-x: hidden;
+    overflow-y: auto;         /* permite scroll vertical cuando haga falta */
+    background-color: #ffffff;
+}
+

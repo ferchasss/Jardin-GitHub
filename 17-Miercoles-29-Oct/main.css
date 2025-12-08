@@ -1,0 +1,138 @@
+*{
+    margin: 0;
+    padding: 0;   
+    box-sizing: border-box;  
+ }
+
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #0A0A0A;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Menú lateral */
+.navbar {
+    color: thistle;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px; /* ancho de la barra */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Contenido del menú: columna vertical, centrada dentro de la barra */
+.navbar nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  height: 100%;
+  transform: none; /* eliminar rotaciones previas */
+}
+
+/* Lista vertical -NO estilo */
+.navbar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+/* Texto en vertical: escribe de arriba hacia abajo con letras "normales" */
+.navbar nav a,
+.navbar nav li a {
+  writing-mode: vertical-rl;    /* hace que el texto sea vertical (top → bottom) */
+  text-orientation: mixed;      /* mantiene las letras en orientación natural */
+  white-space: nowrap;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+/* Si quieres que la lectura vaya en sentido contrario (de abajo hacia arriba),
+   quita el rotate(180deg) o cámbialo. Por ahora lo dejo sin rotar. */
+.navbar a:hover {
+  opacity: 1;
+}
+
+.amsterdam {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.hero-texts {
+    position: absolute;
+    bottom: 40px;                         /* distancia desde abajo */
+    left: 8%;              /* 80px = ancho de .navbar + 24px de separación */
+    color: white;
+    text-align: left;                     /* alinea el texto a la izquierda */
+    z-index: 5;
+    padding: 0 2%;
+    max-width: calc(100vw - (80px + 48px)); /* evita que el texto salga fuera de la ventana */
+    pointer-events: auto;
+}
+
+.canal-text {
+position: relative;
+padding: 0 10%;
+margin: 0;
+margin-top: 0;
+}
+
+.canal-text h1 {
+  font-size: 20em;
+  letter-spacing: 8px;
+  margin: 0;
+  color: red;
+}
+
+.hero-texts h2 {
+  font-size: 1.2em;
+  letter-spacing: 3px;
+  opacity: 0.8;
+}
+
+.hero-texts p {
+  font-size: 0.3em;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  margin-top: 20px;
+}
+
+.circle-button {
+  position: fixed;
+  bottom: 5%;   /* distancia desde el borde inferior */
+  right: 3%;    /* distancia desde el borde derecho */
+  display: inline-block;
+  width: 9%;    
+  aspect-ratio: 1 / 1; 
+  border-radius: 50%;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1vw;
+  z-index: 20;
+  transition: all 0.3s ease;
+  background-color: rgb(255, 38, 0);
+  
+}

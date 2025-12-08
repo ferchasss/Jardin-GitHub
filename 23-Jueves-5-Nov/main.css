@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;   
+    box-sizing: border-box;  
+ }
+
+body {
+    width: 100%;
+    min-height: 100vh;        /* asegurar viewport completo */
+    overflow-x: hidden;
+    overflow-y: auto;         /* permite scroll vertical cuando haga falta */
+    background-color: #ffffff;
+    font-family: neue-haas-grotesk-display-pro, sans-serif;
+}
+
+header {
+    position: relative; 
+     align-items: center;
+    align-content: space-around;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0.7em 2.5em;
+}
+
+header p {
+    font-family: neue-haas-grotesk-display-pro, sans-serif;
+    font-style: bold;
+    font-weight: 450;
+    font-size: 1em;
+    
+}
+
+
+footer {
+    position: relative; 
+     align-items: center;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+footer p {
+    font-size: 0.9em ;
+    font-weight: 600;
+}
+
+
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+}
+
+
+
+h1 {
+    font-size: 2em;
+    flex: 0 0 auto; /* Prevents h1 from growing/shrinking */
+    white-space: nowrap;
+}
+
+.text-columns {
+    display: flex;
+    gap: 2rem;
+    flex: 1; /* Takes remaining space */
+}
+
+.text-1, .text-2, .text-3 {
+    flex: 1;
+    max-width: 32%;
+}
+
+.text-1 p, .text-2 p, .text-3 p {
+    font-size: 0.8em;
+    line-height: 1.4;
+    opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .text-columns {
+        flex-direction: column;
+    }
+    
+    .text-1, .text-2, .text-3 {
+        max-width: 100%;
+    }
+}
