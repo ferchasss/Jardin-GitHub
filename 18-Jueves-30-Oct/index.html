@@ -3,67 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ethical Life - Pharmacist and Nutritionist Formulated</title>
     <link rel="stylesheet" href="./main.css">
 </head>
 <body>
-
     <header>
-        <div class="menu"> 
-            <nav>
-                <a href="#" class="logo">MENU</a>
-                <ul>
-                </ul>
-            </nav>  
-        </div>
-
-        <div class="theme-switch">
-            <label class="switch">
-                <input type="checkbox" id="theme-toggle">
-                <span class="slider round"></span>
-            </label>
-        </div>
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="#about">ABOUT</a>
+                <a href="#shop">SHOP</a>
+                <a href="#learn">LEARN</a>
+            </div>
+            <div class="nav-center">
+                <div class="logo">
+                    <span class="logo-icon">🍃</span>
+                    <span class="logo-text">ethical life</span>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="#account" class="icon-link">👤</a>
+                <a href="#cart" class="icon-link">🛒</a>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <div class="grid">
-            <div class="card card1">
-                <img src="img/1.jpg" alt="Imagen 1">
-            </div>
-            <div class="card card2">
-                <img src="img/2.jpg" alt="Imagen 2">
-            </div>
-            <div class="card card3">
-                <img src="img/3.jpg" alt="Imagen 3">
-            </div>
-            <div class="card card4">
-                <img src="img/4.jpg" alt="Imagen 4">
-            </div>
-            <div class="card card5">
-                <img src="img/5.jpg" alt="Imagen 4">
-            </div>
-            <div class="card card6">
-                <img src="img/6.jpg" alt="Imagen 4">
-            </div>
-            <div class="card card7">
-                <img src="img/7.jpg" alt="Imagen 4">
-            </div>
+        <!-- Contenedor de figuras flotantes (parallax) -->
+        <div class="floating-shapes" id="floatingShapes">
+            <img src="./img/shape1.png" class="shape shape-1" data-speed="2" alt="">
+            <img src="./img/shape2.png" class="shape shape-2" data-speed="3" alt="">
+            <img src="./img/shape3.png" class="shape shape-3" data-speed="1.5" alt="">
+            <img src="./img/shape4.png" class="shape shape-4" data-speed="2.5" alt="">
+            <img src="./img/shape5.png" class="shape shape-5" data-speed="3.5" alt="">
+            <img src="./img/shape6.png" class="shape shape-6" data-speed="2" alt="">
         </div>
 
+        <div class="hero-content">
+            <h1 class="hero-title">ethical life</h1>
+            
+            <div class="product-container">
+                <img src="./img/cara.png" alt="Multi For All - Supplement" class="product-image">
+            </div>
+
+            <div class="hero-subtitle">
+                <p><strong>Pharmacist</strong> and <strong>Nutritionist</strong></p>
+                <p>Formulated.</p>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-        <span class="footer-home">JAM</span>
-        <div class="copy-right">
-            <p>©JAMAREA <br>
-            COMMUNICATION AGENCY <br>
-            BRANDING <br>
-            AND DIGITAL MARKETING</p>
-        </div>
-        <span class="footer-home">AREA</span>
-        </div>
-    </footer>
-    
+    <script src="./app.js"></script>
 </body>
 </html>

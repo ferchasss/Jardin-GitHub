@@ -266,6 +266,23 @@ footer {
     color: #ff6b00;
 }
 
+/* GIF fijo */
+.img-3 {
+    position: fixed !important;
+    top: 15% !important;
+    right: 10% !important;
+    width: 220px;
+    height: auto;
+    z-index: 50;
+    transition: transform 0.3s ease;
+}
+
+.img-3 img {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero-title {

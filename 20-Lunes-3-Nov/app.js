@@ -78,48 +78,59 @@ window.addEventListener('resize', () => {
 });
 
 // ==========================================
-// SISTEMA DE IMÁGENES APILADAS
+// SISTEMA DE IMÁGENES APILADAS (solo PNG, no GIF)
 // ==========================================
 
 const floatingImages = document.querySelector('.floating-images');
-const images = document.querySelectorAll('.float-img');
+const allImages = document.querySelectorAll('.float-img');
 
-// Posiciones iniciales (apiladas en el centro)
+// Separar el GIF de las imágenes PNG
+const gifImage = document.querySelector('.img-3'); // El GIF
+const pngImages = Array.from(allImages).filter(img => !img.classList.contains('img-3'));
+
+// Posición fija del GIF (arriba a la derecha)
+gifImage.style.position = 'fixed';
+gifImage.style.top = '15%';
+gifImage.style.right = '10%';
+gifImage.style.zIndex = '50';
+
+// Posiciones iniciales para PNG (apiladas en el centro)
 const stackedPosition = {
-    x: window.innerWidth / 2 - 175, // centrado
+    x: window.innerWidth / 2 - 175,
     y: window.innerHeight / 2 - 100
 };
 
-// Posiciones cuando se separan
+// Posiciones cuando se separan (solo las 4 PNG)
 const separatedPositions = [
-    { x: '28%', y: '10%' },  // img-1
-    { x: '8%', y: '60%' },   // img-2
-    { x: '70%', y: '5%' },   // img-3 (GIF)
+    { x: '28%', y: '15%' },  // img-1
+    { x: '8%', y: '55%' },   // img-2
     { x: '15%', y: '35%' },  // img-4
-    { x: '65%', y: '55%' }   // img-5
+    { x: '60%', y: '50%' }   // img-5
 ];
 
 // Estado inicial: todas apiladas
 let isStacked = true;
 
-// Función para apilar imágenes
+// Función para apilar imágenes PNG
 function stackImages() {
-    images.forEach((img, index) => {
+    pngImages.forEach((img, index) => {
         img.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
         img.style.left = `${stackedPosition.x}px`;
-        img.style.top = `${stackedPosition.y + (index * 5)}px`; // pequeño offset para efecto 3D
-        img.style.zIndex = index;
+        img.style.top = `${stackedPosition.y + (index * 8)}px`;
+        img.style.zIndex = index + 10;
+        img.style.position = 'absolute';
     });
     isStacked = true;
 }
 
-// Función para separar imágenes
+// Función para separar imágenes PNG
 function separateImages() {
-    images.forEach((img, index) => {
+    pngImages.forEach((img, index) => {
         img.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
         img.style.left = separatedPositions[index].x;
         img.style.top = separatedPositions[index].y;
-        img.style.zIndex = index;
+        img.style.zIndex = index + 10;
+        img.style.position = 'absolute';
     });
     isStacked = false;
 }
@@ -140,11 +151,11 @@ floatingImages.addEventListener('mouseleave', () => {
     }
 });
 
-// Hover individual en cada imagen (para efecto de escala)
-images.forEach(img => {
+// Hover individual en cada imagen PNG (para efecto de escala)
+pngImages.forEach(img => {
     img.addEventListener('mouseenter', () => {
         if (!isStacked) {
-            img.style.transform = 'scale(1.1)';
+            img.style.transform = 'scale(1.15)';
             img.style.zIndex = '100';
         }
     });
@@ -156,19 +167,29 @@ images.forEach(img => {
     });
 });
 
+// Hover en el GIF (efecto independiente)
+gifImage.addEventListener('mouseenter', () => {
+    gifImage.style.transform = 'scale(1.1) rotate(5deg)';
+});
+
+gifImage.addEventListener('mouseleave', () => {
+    gifImage.style.transform = 'scale(1) rotate(0deg)';
+});
+
 // Animación de palabras del hero
 const words = document.querySelectorAll('.word');
 words.forEach((word, index) => {
     word.style.animationDelay = `${index * 0.1}s`;
 });
 
-// Movimiento parallax suave con el mouse (solo cuando están separadas)
+// Movimiento parallax suave con el mouse (solo para PNG cuando están separadas)
 document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth;
+    const mouseY = e.clientY / window.innerHeight;
+    
+    // Parallax solo para PNG cuando están separadas
     if (!isStacked) {
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-        
-        images.forEach((img, index) => {
+        pngImages.forEach((img, index) => {
             const speed = (index + 1) * 5;
             const x = (mouseX - 0.5) * speed;
             const y = (mouseY - 0.5) * speed;
@@ -180,12 +201,27 @@ document.addEventListener('mousemove', (e) => {
             img.style.transform = `${currentTransform} translate(${x}px, ${y}px)`;
         });
     }
+    
+    // Parallax sutil para el GIF (siempre activo)
+    const gifX = (mouseX - 0.5) * 15;
+    const gifY = (mouseY - 0.5) * 15;
+    const currentGifTransform = gifImage.style.transform.includes('scale') 
+        ? gifImage.style.transform 
+        : 'scale(1) rotate(0deg)';
+    
+    if (!currentGifTransform.includes('translate')) {
+        gifImage.style.transform = `${currentGifTransform} translate(${gifX}px, ${gifY}px)`;
+    }
 });
 
 // Responsive: ajustar posición apilada en resize
 window.addEventListener('resize', () => {
     stackedPosition.x = window.innerWidth / 2 - 175;
     stackedPosition.y = window.innerHeight / 2 - 100;
+    
+    // Reposicionar GIF
+    gifImage.style.top = '15%';
+    gifImage.style.right = '10%';
     
     if (isStacked) {
         stackImages();
