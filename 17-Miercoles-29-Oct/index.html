@@ -3,42 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JAM AREA</title>
     <link rel="stylesheet" href="./main.css">
 </head>
 <body>
+    <header>
+        <nav class="menu">
+            <a href="#" class="logo">JAM AREA</a>
+        </nav>
+    </header>
+
+    <!-- Texto que aparece con hover -->
+    <div class="hover-text" id="hoverText"></div>
 
     <main>
-        <!-- Fondo animado o imagen -->
-        <canvas></canvas>
-
-        <!-- Menú lateral vertical -->
-        <div class="navbar">
-        <nav>
-            <div class="menu">
-            <a class="logo">Menu</a>
+        <h1>PORTFOLIO</h1>
+        
+        <div class="grid">
+            <div class="card card1" data-text="DESIGN">
+                <img src="./img/1.jpg" alt="Image 1">
             </div>
-            <ul>
-            <li><a>BY MARCUS BROWN & ARISTIDE BENOIST</a></li>
-            <li><a>CANALS</a></li>
-            <li><a class="amsterdam">AMSTERDAM</a></li>
-            </ul>
-        </nav>
+            <div class="card card2" data-text="PHOTOGRAPHY">
+                <img src="./img/2.jpg" alt="Image 2">
+            </div>
+            <div class="card card3" data-text="BRANDING">
+                <img src="./img/3.jpg" alt="Image 3">
+            </div>
+            <div class="card card4" data-text="CREATIVE">
+                <img src="./img/4.jpg" alt="Image 4">
+            </div>
+            <div class="card card5" data-text="DIGITAL">
+                <img src="./img/5.jpg" alt="Image 5">
+            </div>
+            <div class="card card6" data-text="STUDIO">
+                <img src="./img/6.jpg" alt="Image 6">
+            </div>
+            <div class="card card7" data-text="PORTFOLIO">
+                <img src="./img/7.jpg" alt="Image 7">
+            </div>
         </div>
-
-        <!-- Textos sobre el fondo -->
-        <div class="canal-text">
-        <h1>CANALS</h1>
-        </div>
-        <div class="hero-texts">
-        <h2>Canals is a four part visual glimpse <br>
-        into the creation & history of the iconic <br>
-        17th-century canals of Amsterdam</h2>
-        <p> DESIGN IN AMSTERDAM  - DEVELOPED IN SPAINs</p>
-        </div>
-        <button class="circle-button"></button>
-
     </main>
-    
+
+    <footer>
+        <div class="footer-content">
+            <h2 class="footer-home">JAM</h2>
+            <div class="copy-right">
+                <p>© 2024 JAM AREA</p>
+                <p>All rights reserved</p>
+            </div>
+            <h2 class="footer-home">AREA</h2>
+        </div>
+    </footer>
+
+    <script src="./app.js"></script>
 </body>
 </html>
