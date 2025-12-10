@@ -3,28 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../main.css">
+    <title>Untold - We Tell Untold Stories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./main.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0ebe3;
+}
+
+header {
+    padding: 20px 40px;
+    background-color: rgba(240, 235, 227, 0.95);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+    transition: color 0.3s;
+}
+
+.logo:hover {
+    color: #ff6b00;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff6b00;
+    transition: width 0.3s;
+}
+
+.nav-link:hover {
+    color: #ff6b00;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.language {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.language:hover {
+    color: #ff6b00;
+}
+
+.menu-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ff6b00;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.menu-btn:hover {
+    transform: rotate(90deg);
+    background-color: #ff8c00;
+}
+
+main {
+    padding-top: 120px;
+    min-height: 100vh;
+    position: relative;
+}
+
+.hero {
+    padding: 60px 40px;
+    position: relative;
+    min-height: 70vh;
+}
+
+.hero-title {
+    font-size: clamp(50px, 10vw, 140px);
+    font-weight: 900;
+    line-height: 1;
+    text-transform: lowercase;
+    margin-bottom: 100px;
+}
+
+.word {
+    display: inline-block;
+    transition: all 0.3s;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.word:hover {
+    color: #ff6b00;
+    transform: translateY(-10px);
+}
+
+.accent {
+    color: #ff6b00;
+    font-size: 1.2em;
+}
+
+.paren {
+    color: #666;
+}
+
+.dots {
+    letter-spacing: 10px;
+}
+
+.floating-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.float-img {
+    position: absolute;
+    pointer-events: all;
+    transition: transform 0.5s ease;
+    animation: float 6s ease-in-out infinite;
+}
+
+.float-img:hover {
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+.float-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: block;
+}
+
+.img-1 {
+    top: 10%;
+    left: 28%;
+    width: 320px;
+    height: 200px;
+    animation-delay: 0s;
+}
+
+.img-2 {
+    bottom: 18%;
+    left: 8%;
+    width: 350px;
+    height: 230px;
+    animation-delay: 2s;
+}
+
+.img-3 {
+    top: 5%;
+    right: 10%;
+    width: 200px;
+    height: auto;
+    animation-delay: 1s;
+}
+
+.img-3 img {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.img-4 {
+    top: 35%;
+    left: 15%;
+    width: 280px;
+    height: 180px;
+    animation-delay: 3s;
+}
+
+.img-5 {
+    bottom: 25%;
+    right: 20%;
+    width: 300px;
+    height: 200px;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.description {
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    max-width: 450px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    z-index: 100;
+}
+
+.asterisk {
+    color: #ff6b00;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.description p {
+    font-size: 15px;
+    line-height: 1.6;
+    transition: color 0.3s;
+}
+
+.description:hover p {
+    color: #ff6b00;
+}
+
+.scroll-indicator {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    writing-mode: vertical-rl;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #666;
+    z-index: 100;
+}
+
+footer {
+    padding: 40px;
+    text-align: center;
+    background-color: #f0ebe3;
+    margin-top: 100px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.footer-content p {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.footer-content p:hover {
+    color: #ff6b00;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 50px;
+    }
+    
+    .float-img {
+        width: 150px !important;
+        height: auto !important;
+    }
+    
+    .description {
+        position: static;
+        margin: 50px 40px;
+    }
+}
+    </style>
 </head>
 <body>
 
     <header>
-        <div>
-             <a href="#" class="logo">klook</a>
+        <div class="header-container">
+             <a href="#" class="logo">untold</a>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link">WORK</a>
+                <a href="#" class="nav-link">ABOUT</a>
+                <a href="#" class="nav-link">CONTACT</a>
+            </nav>
             <div class="header-right">
-                <button><a href="../index.html">English</a></button>
-                <button class="share"><a></a></button>
+                <div class="language">( EN )</div>
+                <button class="menu-btn">☰</button>
             </div>
         </div>
     </header>
 
     <main>
-        <div class="content">
-            <div class="content-tittle"><h1>First Up, set your Out of the Office message.</h1></div>
-            <div class="3d-composition">
-                <img src="../img/3d-composition.png" alt="3d-composition">
+        <div class="hero">
+            <h1 class="hero-title">
+                <span class="word">we</span>
+                <span class="word accent">*</span>
+                <span class="word">tell</span>
+                <span class="word">untold</span>
+                <span class="word paren">(</span>
+                <span class="word dots">...</span>
+                <span class="word paren">)</span>
+                <span class="word">stories</span>
+            </h1>
+            
+            <div class="floating-images">
+                <div class="float-img img-1">
+                    <img src="./img/1.jpg" alt="Untold Story 1">
+                </div>
+                <div class="float-img img-2">
+                    <img src="./img/2.jpg" alt="Untold Story 2">
+                </div>
+                <div class="float-img img-3">
+                    <img src="./img/gift.gif" alt="Animated Character">
+                </div>
+                <div class="float-img img-4">
+                    <img src="./img/3.jpg" alt="Untold Story 3">
+                </div>
+                <div class="float-img img-5">
+                    <img src="./img/4.jpg" alt="Untold Story 4">
+                </div>
             </div>
-            <button class="explore-btn">Next <a></a></button>
+        </div>
+
+        <div class="description">
+            <span class="asterisk">(*)</span>
+            <p>We are a communications ecosystem built to rethink how communication happens. Six agencies. One integrated team.</p>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>SCROLL TO DISCOVER</span>
         </div>
     </main>
 
@@ -33,6 +387,8 @@
             <p>Privacy Policy</p>
             <p>Terms & Conditions</p>
         </div>
-    
+    </footer>
+
+    <script src="./app.js"></script>
 </body>
 </html>

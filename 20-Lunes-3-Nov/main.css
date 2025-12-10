@@ -1,14 +1,289 @@
-*{
+* {
     margin: 0;
-    padding: 0;   
-    box-sizing: border-box;  
- }
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    width: 100%;
-    min-height: 100vh;        /* asegurar viewport completo */
+    font-family: 'Inter', sans-serif;
+    background-color: #f0ebe3;
+    color: #1a1a1a;
     overflow-x: hidden;
-    overflow-y: auto;         /* permite scroll vertical cuando haga falta */
-    background-color: #ffffff;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 25px 50px;
+    z-index: 1000;
+    background-color: rgba(240, 235, 227, 0.95);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #1a1a1a;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: #ff6b00;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff6b00;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff6b00;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.language {
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.language:hover {
+    color: #ff6b00;
+}
+
+.menu-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ff6b00;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.menu-btn:hover {
+    transform: rotate(90deg);
+    background-color: #ff8c00;
+}
+
+/* Hero Section */
+main {
+    padding-top: 100px;
+    min-height: 100vh;
+    position: relative;
+}
+
+.hero {
+    padding: 100px 50px;
+    position: relative;
+    min-height: 80vh;
+}
+
+.hero-title {
+    font-size: clamp(40px, 10vw, 120px);
+    font-weight: 900;
+    line-height: 1;
+    text-transform: lowercase;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 100px;
+}
+
+.word {
+    display: inline-block;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.word:hover {
+    color: #ff6b00;
+    transform: translateY(-10px);
+}
+
+.word.accent {
+    color: #ff6b00;
+    font-size: 1.2em;
+}
+
+.word.paren {
+    color: #666;
+}
+
+.word.dots {
+    letter-spacing: 10px;
+}
+
+/* Floating Images */
+.floating-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: all; /* Cambiado de none a all */
+    cursor: pointer;
+}
+
+.float-img {
+    position: absolute;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.float-img:hover {
+    z-index: 100 !important;
+}
+
+.float-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: block;
+    pointer-events: none;
+}
+
+/* Elimina las animaciones float individuales ya que JS maneja la posición */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.float-img {
+    animation: none; /* Desactiva la animación CSS */
+}
+
+/* Description */
+.description {
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    max-width: 450px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    z-index: 100;
+}
+
+.asterisk {
+    color: #ff6b00;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.description p {
+    font-size: 15px;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.description:hover p {
+    color: #ff6b00;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #666;
+    z-index: 100;
+}
+
+/* Footer */
+footer {
+    background-color: #f0ebe3;
+    padding: 60px 50px;
+    margin-top: 100px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.footer-content p {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.footer-content p:hover {
+    color: #ff6b00;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 50px;
+    }
+    
+    .float-img {
+        width: 180px !important;
+        height: auto !important;
+    }
+    
+    .description {
+        position: static;
+        margin: 50px;
+    }
+    
+    .scroll-indicator {
+        writing-mode: horizontal-tb;
+    }
 }
 
